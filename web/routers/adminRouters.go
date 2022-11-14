@@ -9,6 +9,7 @@ func AdminRoutersInit(context *gin.Engine) {
 	adminRouters := context.Group("/web")
 	{
 		adminRouters.GET("/", controllers.UserController{}.Index)
+		adminRouters.GET("/userList", controllers.UserController{}.UserList)
 		adminRouters.GET("/map", controllers.UserController{}.Map)
 		adminRouters.POST("/json", controllers.UserController{}.Json)
 		adminRouters.GET("/test", controllers.UserController{}.Test)

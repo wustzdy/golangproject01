@@ -1,6 +1,10 @@
 package controllers
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"github.com/gin-gonic/gin"
+	"golangproject01/web/models"
+)
 
 type UserController struct {
 	BaseController
@@ -13,6 +17,14 @@ type Article struct {
 
 func (user UserController) Index(c *gin.Context) {
 	c.String(200, "用户列表")
+}
+func (user UserController) UserList(c *gin.Context) {
+	userList := []models.User{}
+	fmt.Println("userList:", userList)
+	models.DB.Find(&userList)
+	c.JSON(200, gin.H{
+		"result": userList,
+	})
 }
 
 func (user UserController) Map(context *gin.Context) {
