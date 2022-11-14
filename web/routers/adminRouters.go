@@ -13,6 +13,9 @@ func AdminRoutersInit(context *gin.Engine) {
 		adminRouters.GET("/map", controllers.UserController{}.Map)
 		adminRouters.GET("/json", controllers.UserController{}.Json)
 		adminRouters.GET("/test", controllers.UserController{}.Test)
+		adminRouters.GET("/add", controllers.UserController{}.Add)
+		adminRouters.GET("/edit", controllers.UserController{}.Edit)
+		adminRouters.GET("/delete", controllers.UserController{}.Delete)
 	}
 
 }

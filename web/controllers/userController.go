@@ -43,3 +43,27 @@ func (user UserController) Json(context *gin.Context) {
 func (user UserController) Test(c *gin.Context) {
 	user.success(c)
 }
+
+func (user UserController) Add(c *gin.Context) {
+	m := models.User{
+		UserName: "张三李四",
+		Age:      12,
+		Email:    "wust@qq.com",
+	}
+	models.DB.Create(&m)
+	c.String(200, "增加用户")
+}
+
+func (user UserController) Edit(c *gin.Context) {
+	user1 := models.User{Id: 2}
+	models.DB.Create(&user1)
+	user1.UserName = "武汉科技大学"
+	models.DB.Save(&user1)
+	user.success(c)
+}
+
+func (user UserController) Delete(c *gin.Context) {
+	user1 := models.User{Id: 2}
+	models.DB.Delete(&user1)
+	user.success(c)
+}
