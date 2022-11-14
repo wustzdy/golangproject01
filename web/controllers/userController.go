@@ -3,7 +3,7 @@ package controllers
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"golangproject01/web/models"
+	models "golangproject01/web/models"
 )
 
 type UserController struct {
@@ -19,7 +19,8 @@ func (user UserController) Index(c *gin.Context) {
 	c.String(200, "用户列表")
 }
 func (user UserController) UserList(c *gin.Context) {
-	userList := make([]models.User, 2)
+	//userList := make([]models.User, 2)
+	var userList models.User
 	fmt.Println("userList:", userList)
 	models.DB.Find(&userList)
 	c.JSON(200, gin.H{
