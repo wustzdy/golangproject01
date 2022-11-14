@@ -19,7 +19,7 @@ func (user UserController) Index(c *gin.Context) {
 	c.String(200, "用户列表")
 }
 func (user UserController) UserList(c *gin.Context) {
-	userList := []models.User{}
+	userList := make([]models.User, 2)
 	fmt.Println("userList:", userList)
 	models.DB.Find(&userList)
 	c.JSON(200, gin.H{
