@@ -1,8 +1,8 @@
 package main
 
 import (
-	"../myMath"
 	"fmt"
+	mathClass "golangproject01/myMath"
 )
 
 var x, y int
