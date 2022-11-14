@@ -11,8 +11,11 @@ type UserController struct {
 }
 
 type Article struct {
-	title   string
-	content string
+	Name       string `json:"name"` // 注意最终json的变量名是后面的！
+	University string `json:"university"`
+	College    string `json:"college"`
+	Major      string `json:"major"`
+	Class      string `json:"class"`
 }
 
 func (user UserController) Index(c *gin.Context) {
@@ -33,10 +36,7 @@ func (user UserController) Map(context *gin.Context) {
 }
 
 func (user UserController) Json(context *gin.Context) {
-	a := Article{
-		title:   "武汉科技大学",
-		content: "武汉科技大学计算机科学与技术学院计算机科学于技术1205",
-	}
+	a := Article{"zhudayang", "武汉科技大学", "计算机科学与技术学院", "计算机科学与技术", "1205"}
 	context.JSON(200, a)
 }
 
