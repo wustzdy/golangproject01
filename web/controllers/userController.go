@@ -19,7 +19,8 @@ type Article struct {
 }
 
 func (user UserController) Index(c *gin.Context) {
-	c.String(200, "用户列表")
+	name := c.DefaultQuery("name", "无参数")
+	c.String(200, name)
 }
 func (user UserController) UserList(c *gin.Context) {
 	//userList := make([]models.User, 2)
