@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	models "golangproject01/web/models"
+	"io/ioutil"
+	"net/http"
 )
 
 type UserController struct {
@@ -67,4 +69,15 @@ func (user UserController) Delete(c *gin.Context) {
 	user1 := models.User{Id: 2}
 	models.DB.Delete(&user1)
 	user.success(c)
+}
+func (user UserController) Post(c *gin.Context) {
+	bodyByts, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		// 返回错误信息
+		c.String(http.StatusBadRequest, err.Error())
+		// 执行退出
+		c.Abort()
+	}
+	// 返回的 code 和 对应的参数星系
+	c.String(http.StatusOK, "%s \n", string(bodyByts))
 }
