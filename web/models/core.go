@@ -16,4 +16,5 @@ func init() {
 		fmt.Println(err)
 	}
 	DB = d
+	DB.AutoMigrate(&User{})
 }

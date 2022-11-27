@@ -11,6 +11,7 @@ type Usber interface {
 type Computer struct {
 }
 
+// var usber Usber= camera
 func (c Computer) work(u Usber) {
 	u.start()
 	u.stop()

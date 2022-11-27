@@ -56,6 +56,11 @@ func (user UserController) Add(c *gin.Context) {
 	models.DB.Create(&m)
 	c.String(200, "增加用户")
 }
+func (user UserController) query(c *gin.Context) {
+	m := models.User{}
+	models.DB.Find(&m)
+	c.String(200, "查询用户")
+}
 
 func (user UserController) Edit(c *gin.Context) {
 	user1 := models.User{Id: 2}

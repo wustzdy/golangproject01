@@ -5,6 +5,7 @@ type User struct {
 	UserName string
 	Age      int
 	Email    string
+	name     string
 }
 
 func (User) TableName() string {
