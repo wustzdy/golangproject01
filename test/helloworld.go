@@ -14,6 +14,11 @@ var ( // 这种因式分解关键字的写法一般用于声明全局变量
 var c, d int = 1, 2
 var e, f = 123, "hello"
 
+type User struct {
+	Name string
+	Age  int
+}
+
 func main() {
 	fmt.Println("hello world1111 ")
 	fmt.Println(mathClass.Add(1, 2))

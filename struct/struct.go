@@ -10,14 +10,16 @@ type Student struct {
 	Score float32
 }
 
+func (s *Student) setStudent(name string) {
+	s.Name = name
+}
+
 func main() {
-	//struct字段访问，使用“点”访问
-	//var stu Student
-	var stu *Student = new(Student)
-	//var stu *Student = &Student{ }
-	stu.Name = "yuchao"
-	stu.Age = 18
-	stu.Score = 99
-	fmt.Println(stu) //默认结构 {yuchao 18 99.1}
-	//fmt.Printf("name=%s age=%d scrore=%d", stu.Name, stu.Age, stu.Score)
+	s1 := Student{
+		Name:  "李四",
+		Age:   12,
+		Score: 89.5,
+	}
+	(&s1).setStudent("张三")
+	fmt.Println("s1:", s1)
 }
