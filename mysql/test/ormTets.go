@@ -20,14 +20,15 @@ type UserInfo struct {
 type Student struct {
 	gorm.Model
 	Name         string
-	Age          sql.NullInt64
+	Age          sql.NullInt64 `gorm:"column:age_of_the_beast_111"`
 	Birthday     *time.Time
 	Email        string  `gorm:"type:varchar(100);unique_index"`
 	Role         string  `gorm:"size:255"`        // 设置字段大小为255
 	MemberNumber *string `gorm:"unique;not null"` // 设置会员号（member number）唯一并且不为空
 	Num          int     `gorm:"AUTO_INCREMENT"`  // 设置 num 为自增类型
 	Address      string  `gorm:"index:addr"`      // 给address字段创建名为addr的索引
-	IgnoreMe     int     `gorm:"-"`               // 忽略本字段
+	IgnoreMe     int     `gorm:"-"`
+	TypeScene    string
 }
 
 func main() {
@@ -67,5 +68,15 @@ func createUserInfo(db *gorm.DB) {
 }
 
 func createStudent(db *gorm.DB) {
-	db.AutoMigrate(&Student{})
+	//db.AutoMigrate(&Student{})
+
+	isExistField := db.Migrator().HasColumn(&Student{}, "TypeScene")
+	if !isExistField {
+		err := db.Migrator().AddColumn(&Student{}, "TypeScene")
+		if err != nil {
+			fmt.Printf("添加字段错误,err:%s\n", err)
+			//return
+		}
+	}
+	fmt.Printf("11111")
 }
