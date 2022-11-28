@@ -4,8 +4,9 @@ go 1.19
 
 require (
 	github.com/gin-gonic/gin v1.8.1
+	github.com/go-gormigrate/gormigrate/v2 v2.0.2
 	gorm.io/driver/mysql v1.4.4
-	gorm.io/gorm v1.24.1
+	gorm.io/gorm v1.24.2
 )
 
 require (

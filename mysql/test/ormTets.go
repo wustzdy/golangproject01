@@ -10,10 +10,11 @@ import (
 
 // UserInfo 用户信息
 type UserInfo struct {
-	ID     uint
-	Name   string
-	Gender string
-	Hobby  string
+	ID      uint
+	Name    string
+	Gender  string
+	Hobby   string
+	Address string
 }
 
 // 定义模型
@@ -39,7 +40,7 @@ func main() {
 		fmt.Println(err)
 	}
 
-	//createUserInfo(db)
+	createUserInfo(db)
 	createStudent(db)
 }
 
@@ -47,12 +48,12 @@ func createUserInfo(db *gorm.DB) {
 	// 自动迁移
 	db.AutoMigrate(&UserInfo{})
 
-	u1 := UserInfo{1, "七米", "男", "篮球"}
-	u2 := UserInfo{2, "沙河娜扎", "女", "足球"}
+	u1 := UserInfo{5, "七米", "男", "篮球", "北京"}
+	u2 := UserInfo{6, "沙河娜扎", "女", "足球", "上海"}
 	// 创建记录
 	db.Create(&u1)
 	db.Create(&u2)
-	// 查询
+	/*// 查询
 	var u = new(UserInfo)
 	db.First(u)
 	fmt.Printf("%#v\n", u)
@@ -64,7 +65,16 @@ func createUserInfo(db *gorm.DB) {
 	// 更新
 	db.Model(&u).Update("hobby", "双色球")
 	// 删除
-	db.Delete(&u)
+	db.Delete(&u)*/
+	isExistField := db.Migrator().HasColumn(&UserInfo{}, "Address")
+	if !isExistField {
+		err := db.Migrator().AddColumn(&UserInfo{}, "Address")
+		if err != nil {
+			fmt.Printf("添加字段错误,err:%s\n", err)
+			//return
+		}
+	}
+	fmt.Printf("11111")
 }
 
 func createStudent(db *gorm.DB) {
