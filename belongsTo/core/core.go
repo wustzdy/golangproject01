@@ -2,7 +2,7 @@ package core
 
 import (
 	"fmt"
-	"golangproject01/belongsAndHas/models"
+	"golangproject01/belongsTo/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"golangproject01/belongsAndHas/core"
-	"golangproject01/belongsAndHas/models"
+	"golangproject01/belongsTo/core"
+	"golangproject01/belongsTo/models"
 	"gorm.io/gorm"
 )
 
