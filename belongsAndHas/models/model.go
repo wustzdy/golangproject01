@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// belongs to
 type Dog struct {
 	gorm.Model
 	Name      string
