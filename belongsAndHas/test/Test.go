@@ -17,5 +17,5 @@ func main() {
 		fmt.Println(err)
 	}
 	DB = db
-	DB.AutoMigrate(&model.Dog{}, &model.GirlGod{})
+	DB.AutoMigrate(&model.Dog{}) //会自动创建关联表
 }

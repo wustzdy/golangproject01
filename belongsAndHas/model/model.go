@@ -4,10 +4,14 @@ import "gorm.io/gorm"
 
 type Dog struct {
 	gorm.Model
-	name string
+	name      string
+	GirlGodID uint
+	GirlGod   GirlGod
 }
 
 type GirlGod struct {
 	gorm.Model
-	name string
+	Name string
 }
+
+//备注
