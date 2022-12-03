@@ -23,5 +23,6 @@ func main() {
 	//CreateBatch()
 	//TestFind()
 	//TestUpdate()
-	TestUpdates()
+	//TestUpdates()
+	deleteTest()
 }

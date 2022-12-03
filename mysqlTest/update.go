@@ -23,12 +23,19 @@ func TestUpdates() {
 	//查询第一条
 	DB.First(&user).Updates(&TestUser{
 		Name: "上海交通大学",
-		Age:  0,
+		Age:  20,
 	})
 	fmt.Println("userFirst:", user) //可以看到零值和空字符串不参与更新，这时候可以采用map
 
 	var user1 TestUser
 	DB.First(&user1).Updates(map[string]interface{}{
+		"name": " ",
+		"age":  0,
+	})
+
+	//批量更新
+	var users []TestUser
+	DB.Find(&users).Updates(map[string]interface{}{
 		"name": " ",
 		"age":  0,
 	})
