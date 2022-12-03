@@ -21,5 +21,7 @@ func main() {
 	//CreateTestUser()
 	//CreateSingleTest()
 	//CreateBatch()
-	TestFind()
+	//TestFind()
+	//TestUpdate()
+	TestUpdates()
 }
