@@ -114,3 +114,10 @@ func TestFind() {
 	DB.Model(&TestUser{}).Where("name like ?", "%武汉%").Find(&userInfo)
 	fmt.Println("selectUser13:", userInfo)
 }
+
+// 原生sql
+func ScanSqlTest() {
+	var user []TestUser
+	DB.Raw("SELECT * FROM test_users WHERE name like ?", "%武汉%").Scan(&user)
+	fmt.Println("user:", user)
+}

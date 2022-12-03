@@ -24,5 +24,6 @@ func main() {
 	//TestFind()
 	//TestUpdate()
 	//TestUpdates()
-	deleteTest()
+	//deleteTest()
+	ScanSqlTest()
 }
