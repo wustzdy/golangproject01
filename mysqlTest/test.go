@@ -107,4 +107,10 @@ func TestFind() {
 	var user11 []TestUser
 	DB.Select("name").Where("name like ?", "%武汉%").Find(&user11)
 	fmt.Println("selectUser12:", user11)
+
+	//字段返回的太冗余，希望干净，只需要name,age,可以先创建一个返回结构体UserInfo，但是这时候 不知道Find(&u) 是哪个？
+	//可以用DB.Model(&TestUser)来制定模型
+	var userInfo []UserInfo
+	DB.Model(&TestUser{}).Where("name like ?", "%武汉%").Find(&userInfo)
+	fmt.Println("selectUser13:", userInfo)
 }

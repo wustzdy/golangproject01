@@ -15,6 +15,11 @@ type TestUser struct {
 	Age  uint8  `gorm:"comment:年纪"`
 }
 
+type UserInfo struct {
+	Name string
+	Age  uint8
+}
+
 func TestUserCreate() {
 	DB.AutoMigrate(&TestUser{})
 }
