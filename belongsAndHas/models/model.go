@@ -1,10 +1,12 @@
-package model
+package models
 
-import "gorm.io/gorm"
+import (
+	"gorm.io/gorm"
+)
 
 type Dog struct {
 	gorm.Model
-	name      string
+	Name      string
 	GirlGodID uint
 	GirlGod   GirlGod
 }
@@ -13,5 +15,3 @@ type GirlGod struct {
 	gorm.Model
 	Name string
 }
-
-//备注
