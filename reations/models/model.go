@@ -15,3 +15,9 @@ type GirlGod struct {
 	Name string
 	Dogs []Dog
 }
+
+type Info struct {
+	gorm.Model
+	Money int
+	DogID uint
+}

@@ -19,4 +19,5 @@ func Init() {
 	DB = db
 	DB.AutoMigrate(&models.Dog{})
 	DB.AutoMigrate(&models.GirlGod{})
+	DB.AutoMigrate(&models.Info{})
 }

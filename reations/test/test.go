@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"golangproject01/reations/core"
 	"golangproject01/reations/models"
 	"gorm.io/gorm"
@@ -8,7 +9,8 @@ import (
 
 func main() {
 	initCore()
-	createTest()
+	//createTest()
+	//selectHasMany()
 }
 
 func initCore() {
@@ -37,4 +39,22 @@ func createTest() {
 	}
 	core.DB.Create(&g)
 
+}
+
+func selectHasMany() {
+	var girl models.GirlGod
+	core.DB.Preload("Dogs").First(&girl) //得到两条
+	fmt.Println("girl:", girl)
+
+	//得到一条
+	var girl1 models.GirlGod
+	core.DB.Preload("Dogs", "name=?", "张三").First(&girl1) //得到两条
+	fmt.Println("girl1:", girl1)
+
+	//第二种写法
+	var girl2 models.GirlGod
+	core.DB.Preload("Dogs", func(db *gorm.DB) *gorm.DB {
+		return db.Where("name", "张三")
+	}).First(&girl2)
+	fmt.Println("girl2:", girl2)
 }
