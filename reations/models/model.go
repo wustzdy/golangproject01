@@ -8,6 +8,7 @@ type Dog struct {
 	gorm.Model
 	Name      string
 	GirlGodID uint
+	Info      Info
 }
 
 type GirlGod struct {

@@ -10,7 +10,7 @@ import (
 func main() {
 	initCore()
 	//createTest()
-	//selectHasMany()
+	selectHasMany()
 }
 
 func initCore() {
@@ -57,4 +57,27 @@ func selectHasMany() {
 		return db.Where("name", "张三")
 	}).First(&girl2)
 	fmt.Println("girl2:", girl2)
+
+	//在Dog里面加入info
+	var girl3 models.GirlGod
+	core.DB.Preload("Dogs.Info").Preload("Dogs").First(&girl3)
+	fmt.Println("girl3:", girl3)
+
+	//在Dog里面加入info
+	var girl4 models.GirlGod
+	core.DB.Preload("Dogs.Info").First(&girl4)
+	fmt.Println("girl4:", girl4)
+
+	//如果是过滤的话
+	//在Dog里面加入info
+	var girl5 models.GirlGod
+	core.DB.Preload("Dogs.Info", "money>100").Preload("Dogs", "name=?", "张三").First(&girl5)
+	fmt.Println("girl4:", girl5)
+
+	//查询大于200money的那个人
+	var girl6 models.GirlGod
+	core.DB.Preload("Dogs", func(db *gorm.DB) *gorm.DB {
+		return db.Joins("Info").Where("money>100")
+	}).First(&girl6)
+	fmt.Println("girl6:", girl6)
 }
