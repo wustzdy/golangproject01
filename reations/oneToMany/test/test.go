@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
-	"golangproject01/reations/core"
-	"golangproject01/reations/models"
+	"golangproject01/reations/oneToMany/core"
+	"golangproject01/reations/oneToMany/models"
 	"gorm.io/gorm"
 )
 
