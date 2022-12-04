@@ -17,7 +17,6 @@ func Init() {
 		fmt.Println(err)
 	}
 	DB = db
-	DB.AutoMigrate(&models.GirlGod{}) //这个时候不糊自动创建Dog//需要
-
-	DB.AutoMigrate(&models.GirlGod{}, &models.Dog{})
+	DB.AutoMigrate(&models.Dog{})
+	DB.AutoMigrate(&models.GirlGod{})
 }

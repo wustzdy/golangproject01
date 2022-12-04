@@ -1,41 +1,40 @@
 package main
 
 import (
-	"fmt"
 	"golangproject01/reations/core"
 	"golangproject01/reations/models"
+	"gorm.io/gorm"
 )
 
 func main() {
 	initCore()
-	//oneToOne()
-	selectOne()
+	createTest()
 }
 
 func initCore() {
 	core.Init()
 }
 
-func hasAs() {
-
-	d := models.Dog{
+func createTest() {
+	d1 := models.Dog{
+		Model: gorm.Model{
+			ID: 1,
+		},
 		Name: "张三",
 	}
+	d2 := models.Dog{
+		Model: gorm.Model{
+			ID: 2,
+		},
+		Name: "李四",
+	}
 	g := models.GirlGod{
+		Model: gorm.Model{
+			ID: 1,
+		},
 		Name: "美女",
-		Dog:  d,
+		Dogs: []models.Dog{d1, d2},
 	}
 	core.DB.Create(&g)
-}
-
-func selectOne() {
-	var girl models.GirlGod
-	core.DB.First(&girl, 1)
-	fmt.Println("girl:", girl)
-
-	//这个时候 只会查询girl相关的，但是dog查不出来， 需要改造
-	var girl1 models.GirlGod
-	core.DB.Preload("Dog").First(&girl1, 1)
-	fmt.Println("girl:", girl1)
 
 }
