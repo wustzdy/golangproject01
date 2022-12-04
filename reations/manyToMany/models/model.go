@@ -6,15 +6,15 @@ import (
 
 type Dog struct {
 	gorm.Model
-	Name      string
-	GirlGodID uint
-	Info      Info
+	Name     string
+	Info     Info
+	GirlGods []GirlGod `gorm:"many2many:dog_girl_god"` //中间表
 }
 
 type GirlGod struct {
 	gorm.Model
 	Name string
-	Dogs []Dog
+	Dogs []Dog `gorm:"many2many:dog_girl_god"`
 }
 
 type Info struct {

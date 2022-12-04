@@ -10,7 +10,7 @@ import (
 func main() {
 	initCore()
 	//createTest()
-	selectHasMany()
+	//selectHasMany()
 }
 
 func initCore() {
