@@ -15,29 +15,35 @@ func main() {
 
 func initCore() {
 	core.Init()
+	createTest()
 }
 
 func createTest() {
+	info := models.Info{
+		Money: 2000,
+	}
+	g1 := models.GirlGod{
+		Model: gorm.Model{
+			ID: 1,
+		},
+		Name: "美女1",
+	}
+	g2 := models.GirlGod{
+		Model: gorm.Model{
+			ID: 2,
+		},
+		Name: "美女2",
+	}
 	d1 := models.Dog{
 		Model: gorm.Model{
 			ID: 1,
 		},
-		Name: "张三",
+		Name:     "张三",
+		GirlGods: []models.GirlGod{g1, g2},
+		Info:     info,
 	}
-	d2 := models.Dog{
-		Model: gorm.Model{
-			ID: 2,
-		},
-		Name: "李四",
-	}
-	g := models.GirlGod{
-		Model: gorm.Model{
-			ID: 1,
-		},
-		Name: "美女",
-		Dogs: []models.Dog{d1, d2},
-	}
-	core.DB.Create(&g)
+
+	core.DB.Create(&d1)
 
 }
 
