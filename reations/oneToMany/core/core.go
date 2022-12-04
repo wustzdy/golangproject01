@@ -2,7 +2,7 @@ package core
 
 import (
 	"fmt"
-	"golangproject01/reations/models"
+	"golangproject01/reations/oneToMany/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
