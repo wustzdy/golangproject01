@@ -44,10 +44,57 @@ func CreateTest() {
 
 func selectTest() {
 	var user models.User
-	core.DB.Find(&user)
+	core.DB.Last(&user)
 	fmt.Printf("name:%#v,email:%#v,age:%#v,memberNumber:%#v:",
 		*user.Name, *user.Email, int(user.Age), user.MemberNumber.String)
 
-	fmt.Printf("user111:", user)
+	core.DB.Where("name=?", "上海").Find(&user)
+	fmt.Println("user1:", user)
+
+	var users []models.User
+	core.DB.Where("name <> ?", "上海").Find(&users)
+	fmt.Println("users:", users)
+
+	var users1 []models.User
+	core.DB.Where("name in (?)", []string{"上海", "北京"}).Find(&users1)
+	fmt.Println("users1:", users1)
+
+	//struct查询
+	var user1 models.User
+	var name = "北京"
+	core.DB.Where(&models.User{
+		Name: &name,
+		Age:  20,
+	}).First(&user1)
+	fmt.Println("userStruct:", user1)
+
+	//map查询
+	var user2 []models.User
+	core.DB.Where(map[string]interface{}{
+		"Name": "北京",
+		"Age":  0,
+	}).Find(&user2)
+	fmt.Println("mapStruct:", user2)
+
+	//or
+	var user3 []models.User
+	core.DB.Where("name=?", "上海").Or("name=?", "北京").Find(&user3)
+	fmt.Println("user3:", user3)
+
+	//struct or
+	var user4 []models.User
+	var name1 = "北京"
+	core.DB.Where("name=?", "上海").Or(&models.User{
+		Name: &name1,
+	}).Find(&user4)
+	fmt.Println("user4:", user4)
+
+	//map or
+	var user5 []models.User
+	core.DB.Where("name=?", "上海").Or(map[string]interface{}{
+		"name": "上海",
+		"age":  0,
+	}).Find(&user5)
+	fmt.Println("user5:", user5)
 
 }

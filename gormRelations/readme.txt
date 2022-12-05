@@ -126,6 +126,7 @@ db.Create(&user)
 **注意：**所有字段的零值, 比如0, "",false或者其它零值，都不会保存到数据库内，但会使用他们的默认值。
  如果你想避免这种情况，可以考虑使用指针或实现 Scanner/Valuer接口，比如：
 
+14，
 使用指针方式实现零值存入数据库
 // 使用指针
 type User struct {
@@ -136,6 +137,7 @@ type User struct {
 user := User{Name: new(string), Age: 18))}
 db.Create(&user)  // 此时数据库中该条记录name字段的值就是''
 
+15，
 使用Scanner/Valuer接口方式实现零值存入数据库
 // 使用 Scanner/Valuer
 type User struct {
@@ -161,3 +163,112 @@ func selectTest() {
 	fmt.Printf("name:%#v,email:%#v,age:%#v,memberNumber:%#v:",
 		*user.Name, *user.Email, int(user.Age), user.MemberNumber.String)
 }
+
+17，
+Where 条件
+普通SQL查询
+// Get first matched record
+db.Where("name = ?", "jinzhu").First(&user)
+ SELECT * FROM users WHERE name = 'jinzhu' limit 1;
+
+// Get all matched records
+db.Where("name = ?", "jinzhu").Find(&users)
+ SELECT * FROM users WHERE name = 'jinzhu';
+
+// <>
+db.Where("name <> ?", "jinzhu").Find(&users)
+ SELECT * FROM users WHERE name <> 'jinzhu';
+
+// IN
+db.Where("name IN (?)", []string{"jinzhu", "jinzhu 2"}).Find(&users)
+ SELECT * FROM users WHERE name in ('jinzhu','jinzhu 2');
+
+ / LIKE
+ db.Where("name LIKE ?", "%jin%").Find(&users)
+  SELECT * FROM users WHERE name LIKE '%jin%';
+
+ // AND
+ db.Where("name = ? AND age >= ?", "jinzhu", "22").Find(&users)
+  SELECT * FROM users WHERE name = 'jinzhu' AND age >= 22;
+
+ // Time
+ db.Where("updated_at > ?", lastWeek).Find(&users)
+  SELECT * FROM users WHERE updated_at > '2000-01-01 00:00:00';
+
+ // BETWEEN
+ db.Where("created_at BETWEEN ? AND ?", lastWeek, today).Find(&users)
+  SELECT * FROM users WHERE created_at BETWEEN '2000-01-01 00:00:00' AND '2000-01-08 00:00:00'
+
+18，
+Struct & Map查询
+// Struct
+db.Where(&User{Name: "jinzhu", Age: 20}).First(&user)
+ SELECT * FROM users WHERE name = "jinzhu" AND age = 20 LIMIT 1;
+
+// Map
+db.Where(map[string]interface{}{"name": "jinzhu", "age": 20}).Find(&users)
+ SELECT * FROM users WHERE name = "jinzhu" AND age = 20;
+
+// 主键的切片
+db.Where([]int64{20, 21, 22}).Find(&users)
+ SELECT * FROM users WHERE id IN (20, 21, 22);
+
+19，
+*提示：**当通过结构体进行查询时，GORM将会只通过非零值字段查询，这意味着如果你的字段值为0，''，false或者其他零值时，将不会被用于构建查询条件，例如：
+
+ db.Where(&User{Name: "jinzhu", Age: 0}).Find(&users)
+  SELECT * FROM users WHERE name = "jinzhu";
+  你可以使用指针或实现 Scanner/Valuer 接口来避免这个问题.
+
+  // 使用指针
+  type User struct {
+    gorm.Model
+    Name string
+    Age  *int
+  }
+
+  // 使用 Scanner/Valuer
+  type User struct {
+    gorm.Model
+    Name string
+    Age  sql.NullInt64  // sql.NullInt64 实现了 Scanner/Valuer 接口
+  }
+20，
+Not 条件
+
+作用与 Where 类似的情形如下：
+
+db.Not("name", "jinzhu").First(&user)
+ SELECT * FROM users WHERE name <> "jinzhu" LIMIT 1;
+
+// Not In
+db.Not("name", []string{"jinzhu", "jinzhu 2"}).Find(&users)
+ SELECT * FROM users WHERE name NOT IN ("jinzhu", "jinzhu 2");
+
+// Not In slice of primary keys
+db.Not([]int64{1,2,3}).First(&user)
+ SELECT * FROM users WHERE id NOT IN (1,2,3);
+
+db.Not([]int64{}).First(&user)
+ SELECT * FROM users;
+
+// Plain SQL
+db.Not("name = ?", "jinzhu").First(&user)
+ SELECT * FROM users WHERE NOT(name = "jinzhu");
+
+// Struct
+db.Not(User{Name: "jinzhu"}).First(&user)
+ SELECT * FROM users WHERE name <> "jinzhu"
+
+21,
+Or条件
+db.Where("role = ?", "admin").Or("role = ?", "super_admin").Find(&users)
+ SELECT * FROM users WHERE role = 'admin' OR role = 'super_admin';
+
+// Struct
+db.Where("name = 'jinzhu'").Or(User{Name: "jinzhu 2"}).Find(&users)
+ SELECT * FROM users WHERE name = 'jinzhu' OR name = 'jinzhu 2';
+
+// Map
+db.Where("name = 'jinzhu'").Or(map[string]interface{}{"name": "jinzhu 2"}).Find(&users)
+ SELECT * FROM users WHERE name = 'jinzhu' OR name = 'jinzhu 2'
