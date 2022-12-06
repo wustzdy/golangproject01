@@ -3,8 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"golangproject01/gormRelations/core"
-	"golangproject01/gormRelations/models"
+	"golangproject01/gormRelations/base/core"
+	"golangproject01/gormRelations/base/models"
 )
 
 func main() {
