@@ -5,9 +5,10 @@ import "gorm.io/gorm"
 // `User` 属于 `Company`，`CompanyID` 是外键
 type User struct {
 	gorm.Model
-	Name      string
-	CompanyID int
-	Company   Company
+	Name         string
+	CompanyRefer int
+	Company      Company `gorm:"foreignKey:CompanyRefer"`
+	//// 使用 CompanyRefer 作为外键
 }
 
 type Company struct {

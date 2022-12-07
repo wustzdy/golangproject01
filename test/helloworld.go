@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	mathClass "golangproject01/myMath"
+	"strings"
+	"unicode"
 )
 
 var x, y int
@@ -128,4 +130,10 @@ func main() {
 
 	g, h := 123, "hello"
 	println(x, y, a, b, c, d, e, f, g, h)
+
+	var str = "23He220"
+	var sc unicode.SpecialCase
+	fmt.Println("ToLowerstr:", strings.ToLower(str))
+	fmt.Println("ToLowerstr:", strings.ToUpper(str))
+	fmt.Println(strings.ToUpperSpecial(sc, "hello world abc"))
 }
