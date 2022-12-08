@@ -1,0 +1,53 @@
+2、Has One 拥有
+
+has one 与另一个模型建立一对一的关联，但它和一对一关系有些许不同。 这种关联表明一个模型的每个实例都包含或拥有另一个模型的一个实例。
+
+    提示：Has one很像属于（belongs to）关系，都是一对一关系，区别是Has One关系和Belongs To关系，持有关联Model属性的关系是相反的，例如：A 关联 B，Has One关系通常是A 结构体持有B属性， belongs to关系则是B结构体持有A。
+
+    例如：你有两张表 users 表和 credit_cards 表
+
+        users --用户表
+        credit_cards --信用卡表
+
+    1，user 是拥有 creditcard 的，creditcard 有且只能被一个 user 拥有。
+    2，Creditcard是属于user的，或者说user关联Creditcard
+    Has One
+    3，A模型引用B模型，在A模型在A表中创建数据，同时也会在B表中创建对应数据。
+
+
+    // User 有一张 CreditCard，UserID 是外键
+    type User struct {
+    	gorm.Model
+    	CreditCard CreditCard
+    }
+
+    type CreditCard struct {
+    	gorm.Model
+    	Number string
+    	UserID uint
+    }
+
+    func main() {
+    	//这里需要先创建users表，再创建credit_cards表
+    	db.AutoMigrate(&User{}, &CreditCard{})
+    }
+
+1）创建记录
+
+创建用户拥有信用卡号为123456的记录
+
+c := CreditCard{
+	Number: "123456",
+}
+
+u := User{
+	CreditCard: c,
+}
+db.Create(&u)
+
+2）查询记录
+
+var u User
+db.Model(&User{}).Preload("CreditCard").First(&u)
+fmt.Println(u)
+
