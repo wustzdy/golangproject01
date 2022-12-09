@@ -1,13 +1,20 @@
 package main
 
 import (
+	"encoding/json"
+	"fmt"
 	"golangproject01/gormRelations/belongsTo/core"
 	"golangproject01/gormRelations/belongsTo/models"
 )
 
 func main() {
-	Init()
-	createTest()
+	//Init()
+	//createTest()
+	//selectTest()
+
+	var map1 = map[string]string{"workspaceID": "111"}
+	json, _ := json.Marshal(map1)
+	fmt.Println("json:", string(json))
 }
 
 func Init() {
@@ -22,4 +29,11 @@ func createTest() {
 		},
 	}
 	core.DB.Create(&user)
+}
+
+func selectTest() {
+	var user models.User
+	core.DB.Find(&user)
+	b, _ := json.Marshal(user)
+	fmt.Println("user:", string(b))
 }
