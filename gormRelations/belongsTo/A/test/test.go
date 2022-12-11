@@ -3,14 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"golangproject01/gormRelations/belongsTo/core"
-	"golangproject01/gormRelations/belongsTo/models"
+	"golangproject01/gormRelations/belongsTo/A/core"
+	"golangproject01/gormRelations/belongsTo/A/models"
 )
 
 func main() {
-	//Init()
-	//createTest()
-	//selectTest()
+	Init()
+	createTest()
+	selectTest()
 
 	var map1 = map[string]string{"workspaceID": "111"}
 	json, _ := json.Marshal(map1)
