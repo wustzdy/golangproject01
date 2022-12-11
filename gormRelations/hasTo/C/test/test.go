@@ -18,12 +18,12 @@ func Init() {
 }
 func createTest() {
 	c := models.CreditCard{
-		Number:   "333",
-		UserName: "张三",
+		Number: "333",
 	}
 
 	u := models.User{
 		CreditCard: c,
+		Name:       "张三说",
 	}
 	core.DB.Create(&u)
 
