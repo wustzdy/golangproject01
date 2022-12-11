@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"golangproject01/gormRelations/hasTo/core"
-	"golangproject01/gormRelations/hasTo/models"
+	"golangproject01/gormRelations/hasTo/A/core"
+	"golangproject01/gormRelations/hasTo/A/models"
 )
 
 func main() {
