@@ -20,8 +20,7 @@ func createTest() {
 
 	u := models.User{
 		CreditCard: models.CreditCard{
-			Number:   "dddd",
-			UserName: "张三",
+			Number: "123",
 		},
 	}
 	core.DB.Create(&u)
