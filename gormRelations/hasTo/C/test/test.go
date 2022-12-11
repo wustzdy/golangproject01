@@ -18,8 +18,8 @@ func Init() {
 }
 func createTest() {
 	c := models.CreditCard{
-		Number:           "123",
-		UserMemberNumber: "7777",
+		Number:   "333",
+		UserName: "张三",
 	}
 
 	u := models.User{
