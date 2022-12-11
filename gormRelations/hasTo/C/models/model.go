@@ -4,15 +4,15 @@ import (
 	"gorm.io/gorm"
 )
 
-// 如果你想要使用另一个字段来保存该关系，你同样可以使用标签 foreignKey 来更改它，例如：
+// CreditCard表里的 UserName 关联到User表里的 name字段上
 type User struct {
 	gorm.Model
-	Name       string
-	CreditCard CreditCard `gorm:"foreignkey:user_name;association_foreignkey:name"`
+	MemberNumber string     `gorm:"index"`
+	CreditCard   CreditCard `gorm:"foreignkey:UserMemberNumber;association_foreignkey:MemberNumber"`
 }
 
 type CreditCard struct {
 	gorm.Model
-	Number   string
-	UserName string
+	Number           string
+	UserMemberNumber string
 }

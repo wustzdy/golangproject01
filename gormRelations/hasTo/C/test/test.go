@@ -17,12 +17,13 @@ func Init() {
 	core.Init()
 }
 func createTest() {
+	c := models.CreditCard{
+		Number:           "123",
+		UserMemberNumber: "7777",
+	}
 
 	u := models.User{
-		CreditCard: models.CreditCard{
-			Number:   "123",
-			UserName: "张三",
-		},
+		CreditCard: c,
 	}
 	core.DB.Create(&u)
 
