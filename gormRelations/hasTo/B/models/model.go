@@ -16,3 +16,6 @@ type CreditCard struct {
 	Number   string
 	UserName string
 }
+
+/*可以看到，CreditCard表最后的字段确实是变成了user_name，但是user_name还是1 ，
+也就是说，还是把User的ID字段直接拿过来放在了里面，我们可以再确认一下，结构体定义不变，看下方代码*/

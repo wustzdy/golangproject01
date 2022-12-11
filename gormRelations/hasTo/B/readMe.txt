@@ -13,6 +13,8 @@ type CreditCard struct {
 }
 
 //也就是表CreditCard 的UserName 存的就是Users表中的主键ID
+可以看到，CreditCard表最后的字段确实是变成了user_name，但是user_name还是1 ，也就是说，
+还是把User的ID字段直接拿过来放在了里面，我们可以再确认一下，结构体定义不变，看下方代码
 show create table users
 CREATE TABLE `users` (
 `id` bigint unsigned NOT NULL AUTO_INCREMENT,

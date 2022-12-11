@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"golangproject01/gormRelations/hasTo/B/core"
 	"golangproject01/gormRelations/hasTo/B/models"
+	"gorm.io/gorm"
 )
 
 func main() {
@@ -21,6 +22,9 @@ func createTest() {
 	u := models.User{
 		CreditCard: models.CreditCard{
 			Number: "123",
+		},
+		Model: gorm.Model{
+			ID: 9999,
 		},
 	}
 	core.DB.Create(&u)
