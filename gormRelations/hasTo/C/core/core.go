@@ -21,5 +21,6 @@ func Init() {
 	}
 	DB = db
 	//这里需要先创建users表，再创建credit_cards表
-	DB.AutoMigrate(&models.User{}, &models.CreditCard{})
+	DB.AutoMigrate(&models.CreditCard{})
+	DB.AutoMigrate(&models.User{})
 }

@@ -8,7 +8,7 @@ import (
 type User struct {
 	gorm.Model
 	Name       string     `sql:"index"`
-	CreditCard CreditCard `gorm:"foreignkey:UserName;association_foreignkey:name"`
+	CreditCard CreditCard `gorm:"foreignkey:UserName;references:Name"`
 }
 
 type CreditCard struct {
