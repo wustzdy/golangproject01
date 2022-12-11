@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"golangproject01/gormRelations/hasTo/core"
 	"golangproject01/gormRelations/hasTo/models"
@@ -26,8 +27,9 @@ func createTest() {
 
 }
 func selectTest() {
-	var user models.User
+	var user []models.User
 	core.DB.Model(models.User{}).Preload("CreditCard").Find(&user)
-	fmt.Println("user:", user)
+	json, _ := json.Marshal(user)
+	fmt.Println("user:", string(json))
 
 }
