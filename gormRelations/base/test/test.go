@@ -45,6 +45,7 @@ func CreateTest() {
 func selectTest() {
 	var user models.User
 	core.DB.Last(&user)
+
 	fmt.Printf("name:%#v,email:%#v,age:%#v,memberNumber:%#v:",
 		*user.Name, *user.Email, int(user.Age), user.MemberNumber.String)
 
