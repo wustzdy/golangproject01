@@ -2,6 +2,7 @@ package models
 
 import (
 	"gorm.io/gorm"
+	"time"
 )
 
 // User 有一张 CreditCard，UserID 是外键
@@ -16,4 +17,12 @@ type CreditCard struct {
 	gorm.Model
 	Number string
 	UserID uint
+}
+
+type Result struct {
+	ID        uint `gorm:"primarykey"`
+	CreatedAt time.Time
+	UpdatedAt time.Time
+	Number    string
+	UserID    uint
 }

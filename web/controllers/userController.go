@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	models "golangproject01/web/models"
@@ -85,4 +86,55 @@ func (user UserController) Post(c *gin.Context) {
 	}
 	// 返回的 code 和 对应的参数星系
 	c.String(http.StatusOK, "%s \n", string(bodyByts))
+}
+
+type CreateAutoTaskReq struct {
+	DataType            int         `json:"dataType" binding:"min=0,max=1"`
+	SetVerID            string      `json:"setVerID"`
+	SceneType           SceneType   `json:"sceneType" binding:"min=0,max=9"`
+	SceneSource         SceneSource `json:"sceneSource"`
+	TaskType            uint        `json:"taskType" binding:"min=1,max=1"`
+	CustomDataConfigID  *string     `json:"customDataConfigID"`
+	CustomModuleID      *int64      `json:"customModuleID"`      // 自定训练配置id
+	CustomModuleConfigs *string     `json:"customModuleConfigs"` // 自定义训练配置超参yml
+}
+type SceneType int
+type SceneSource int
+
+const (
+	// TaskTypeObjectDetection 物体检测
+	TaskTypeObjectDetection SceneType = 0
+	// TaskTypeImageClassification 图像分类
+	TaskTypeImageClassification SceneType = 1
+	// TaskTypeSingleDetection 单目标检测
+	TaskTypeSingleDetection SceneType = 2
+	// TaskTypeMultiDetection 多目标检测
+	TaskTypeMultiDetection SceneType = 3
+	// TaskTypeBinaryClassification 二分类
+	TaskTypeBinaryClassification SceneType = 4
+	// TaskTypeMultiClassification 多分类
+	TaskTypeMultiClassification SceneType = 5
+	// TaskTypeInstanceSegmentation 实例分割
+	TaskTypeInstanceSegmentation SceneType = 6
+	// TaskTypeSemanticSegmentation 语义分割
+	TaskTypeSemanticSegmentation SceneType = 7
+	// TaskTypeEnglishOCR 英文OCR
+	TaskTypeEnglishOCR SceneType = 8
+	// TaskTypeDetectionClassification
+	TaskTypeDetectionClassification SceneType = 9
+	// TaskTypeVideoClassification 视频分类
+	TaskTypeVideoClassification SceneType = 10
+	// TaskTypePointCloud 点云
+	TaskTypePointCloud SceneType = 11
+)
+
+func (user UserController) TestJson(c *gin.Context) {
+	var req CreateAutoTaskReq
+	if err := c.ShouldBindJSON(&req); err != nil {
+		return
+	}
+	resJson, _ := json.Marshal(req)
+	fmt.Println("--CreateAutoTaskReq-req:", string(resJson))
+
+	c.JSON(200, resJson)
 }

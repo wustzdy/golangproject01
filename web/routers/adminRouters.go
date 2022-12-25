@@ -17,6 +17,7 @@ func AdminRoutersInit(context *gin.Engine) {
 		adminRouters.GET("/edit", controllers.UserController{}.Edit)
 		adminRouters.GET("/delete", controllers.UserController{}.Delete)
 		adminRouters.POST("/post", controllers.UserController{}.Post)
+		adminRouters.POST("/TestJson", controllers.UserController{}.TestJson)
 	}
 
 }
