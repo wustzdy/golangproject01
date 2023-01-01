@@ -99,6 +99,85 @@ func main() {
 
 	//4，使用make来声明一个切片
 	var sliceA = make([]int, 4, 8)
-	fmt.Println(sliceA) //[0 0 0 0]
+	fmt.Println(sliceA)                                 //[0 0 0 0]
+	fmt.Printf("长度%d 容量%d\n", len(sliceA), cap(sliceA)) //长度4 容量8
 
+	var sliceB = make([]int, 4, 8)
+	sliceB[0] = 10
+	sliceB[1] = 12
+	sliceB[2] = 40
+	sliceB[3] = 30
+	fmt.Println(sliceB) //[10 12 40 30]
+
+	slicec := []string{"php", "java", "go"}
+	slicec[2] = "golang"
+	fmt.Println(slicec) //[php java golang]
+
+	//golang 中没法通过下标的方式给切片进行扩容，需要用到append()
+	/*var sliced []int
+	fmt.Printf("长度%d 容量%d\n", len(sliced), cap(sliced)) //长度0 容量0
+	sliced[0] = 1
+	fmt.Println(sliced)*/
+
+	//1，golang 要给切片扩容的话要用append方法
+	var sliceE []int
+	fmt.Printf("长度%d 容量%d\n", len(sliceE), cap(sliceE)) //长度0 容量0
+	sliceE = append(sliceE, 12)
+	sliceE = append(sliceE, 24)
+	fmt.Printf("%v  长度%d 容量%d\n", sliceE, len(sliceE), cap(sliceE)) //[12 24]  长度2 容量2
+
+	//2，可以一次性追加多个元素
+	var sliceF []int
+	fmt.Printf("长度%d 容量%d\n", len(sliceF), cap(sliceF)) //长度0 容量0
+	sliceF = append(sliceF, 12, 23, 35, 465)
+	fmt.Printf("%v 长度%d 容量%d\n", sliceF, len(sliceF), cap(sliceF)) //[12 23 35 465] 长度4 容量4
+
+	//3，append还可以合并切片
+	sliceG := []string{"php", "java"}
+	sliceH := []string{"nodeJs", "golang"}
+
+	sliceG = append(sliceG, sliceH...)                             //把sliceH合并到sliceG上
+	fmt.Printf("%v 长度%d 容量%d\n", sliceG, len(sliceG), cap(sliceG)) //[php java nodeJs golang] 长度4 容量4
+
+	//4，切片的扩容策略
+	var sliceI []int
+	for i := 1; i <= 10; i++ {
+		sliceI = append(sliceI, i)
+		fmt.Printf("%v 长度%d 容量%d\n", sliceI, len(sliceI), cap(sliceI))
+	}
+
+	//5，切片就是引用数据类型
+	sliceJ := []int{1, 2, 3, 45}
+	sliceK := sliceJ
+	sliceK[0] = 11
+	fmt.Println(sliceJ) //[11 2 3 45]
+	fmt.Println(sliceK) //[11 2 3 45]
+
+	//6，使用copy来复制切片，sliceN改变了，但是不会影响sliceM的切片
+	sliceM := []int{1, 2, 3, 45}
+	sliceN := make([]int, 4, 4)
+	copy(sliceN, sliceM)
+	fmt.Println(sliceN) //[1 2 3 45]
+	fmt.Println(sliceM) //[1 2 3 45]
+
+	sliceN[0] = 111111
+	fmt.Println(sliceN) //[111111 2 3 45]
+	fmt.Println(sliceM) //[1 2 3 45]
+
+	//7，删除切片元素的方法
+	a1 := []int{30, 31, 32, 33, 34, 35, 36, 37}
+	//要删除索引为2的元素
+	a1 = append(a1[:2], a1[3:]...)
+	fmt.Printf("%v 长度%d 容量%d\n", a1, len(a1), cap(a1)) //[30 31 33 34 35 36 37] 长度7 容量8
+
+	//8-改变字符串中某一个字符
+	s11 := "big"
+	byteStr := []byte(s11)
+	byteStr[0] = 'p'
+	fmt.Println(string(byteStr)) //pig
+
+	s22 := "你好golang"
+	runeStr := []rune(s22)
+	runeStr[0] = '大'
+	fmt.Println(string(runeStr)) //大好golang
 }
