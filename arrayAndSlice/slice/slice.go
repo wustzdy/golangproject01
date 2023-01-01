@@ -78,4 +78,27 @@ func main() {
 		return true // keep iterating
 	})*/
 
+	a := []string{"北京", "上海", "广州", "深圳", "成都", "重庆"}
+	b := a[1:]
+	fmt.Println("b:", b) //[上海 广州 深圳 成都 重庆]
+
+	//3,关于切片的长度和容量
+	//长度：切片的长度就是它所包含元素的个数
+	//容量：切片的容量是从它的d第一个元素开始数，到其底层数组元素末尾的个数
+	s := []int{2, 3, 5, 7, 11, 13}
+	fmt.Printf("长度%d 容量%d\n", len(s), cap(s)) //长度6 容量6
+
+	s1 := s[2:]                                 //5, 7, 11, 13
+	fmt.Printf("长度%d 容量%d\n", len(s1), cap(s1)) //长度4 容量4
+
+	s2 := s[1:3]                                //3,5
+	fmt.Printf("长度%d 容量%d\n", len(s2), cap(s2)) //长度2 容量5
+
+	s3 := s[:3]                                 //2, 3, 5
+	fmt.Printf("长度%d 容量%d\n", len(s3), cap(s3)) //长度3 容量6
+
+	//4，使用make来声明一个切片
+	var sliceA = make([]int, 4, 8)
+	fmt.Println(sliceA) //[0 0 0 0]
+
 }
