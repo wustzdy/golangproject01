@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"sort"
+)
 
 // golang中可变参数
 func sumFu1(x ...int) int {
@@ -50,6 +53,55 @@ func calc2(x, y int) (sum, sub int) {
 	fmt.Println(sum, sub) //12 8
 	return
 }
+
+// 升序
+func sortIntAsc(slice []int) []int {
+	for i := 0; i < len(slice); i++ {
+		for j := i + 1; j < len(slice); j++ {
+			if slice[i] > slice[j] {
+				temp := slice[i]
+				slice[i] = slice[j]
+				slice[j] = temp
+			}
+		}
+	}
+	return slice
+}
+
+// 降序
+func sortIntDesc(slice []int) []int {
+	for i := 0; i < len(slice); i++ {
+		for j := i + 1; j < len(slice); j++ {
+			if slice[i] < slice[j] {
+				temp := slice[i]
+				slice[i] = slice[j]
+				slice[j] = temp
+			}
+		}
+	}
+	return slice
+}
+
+func mapSort(map1 map[string]string) string {
+	//1，把map对象的key放在一个map的切片里面
+	var sliceKey []string
+	for k, _ := range map1 {
+		sliceKey = append(sliceKey, k)
+	}
+	fmt.Println(sliceKey)
+
+	//2，对key进行升序排序
+	sort.Strings(sliceKey)
+	fmt.Println("排序后的sliceKey:", sliceKey)
+
+	//3,
+	var str string
+	for _, value := range sliceKey {
+		str += fmt.Sprintf("%v=>%v ", value, map1[value])
+	}
+	return str
+
+}
 func main() {
 	sum1 := sumFu1(12, 34, 45, 46)
 	fmt.Println("sum1:", sum1)
@@ -66,4 +118,24 @@ func main() {
 	sum11, sub11 := calc1(10, 2)
 	fmt.Printf("sum11:%d sub11:%d\n", sum11, sub11) //sum11:12 sub11:8
 
+	//升序
+	var sliceA = []int{12, 34, 37, 35, 556, 36, 2}
+	arr := sortIntAsc(sliceA)
+	fmt.Println("arr:", arr) //arr: [2 12 34 35 36 37 556]
+
+	//降序
+	var sliceB = []int{12, 34, 37, 35, 556, 36, 2}
+	arrB := sortIntDesc(sliceB)
+	fmt.Println("arrB:", arrB) //arrB: [556 37 36 35 34 12 2]
+
+	//对map的key进行升序排序
+	map1 := map[string]string{
+		"username": "zhangsan",
+		"age":      "20",
+		"sex":      "男",
+		"heigh":    "180cm",
+	}
+
+	str := mapSort(map1)
+	fmt.Println("str:", str) //str: age=>20 heigh=>180cm sex=>男 username=>zhangsan
 }
