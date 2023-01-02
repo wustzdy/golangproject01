@@ -81,4 +81,19 @@ func structTest() {
 		"男",
 	}
 	fmt.Printf("值:%#v 类型:%T\n", p7, p7) //值:&main.Person{Name:"找死", Age:20, Sex:"男"} 类型:*main.Person
+
+	fmt.Println("---验证结构体是否是引用数据类型-----")
+	var p8 = Person{
+		Name: "社会生活",
+		Sex:  "女",
+		Age:  34,
+	}
+	p9 := p8
+	fmt.Printf("p8 %#v\n", p8) //p8 main.Person{Name:"社会生活", Age:34, Sex:"女"}
+	fmt.Printf("p9 %#v\n", p9) //p9 main.Person{Name:"社会生活", Age:34, Sex:"女"}
+
+	p9.Name = "武汉"
+	fmt.Printf("p8 %#v\n", p8) //p8 main.Person{Name:"社会生活", Age:34, Sex:"女"}
+	fmt.Printf("p9 %#v\n", p9) //p9 main.Person{Name:"武汉", Age:34, Sex:"女"}
+	//说明结构体是一个值类型
 }
