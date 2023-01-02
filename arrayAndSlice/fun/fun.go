@@ -102,6 +102,51 @@ func mapSort(map1 map[string]string) string {
 	return str
 
 }
+
+// 递归打印整数
+func fn1(n int) {
+	if n > 0 {
+		fmt.Println(n)
+		n--
+		fn1(n)
+	}
+}
+
+// 递归实现1-100的和
+func fn2(n int) int {
+	if n > 1 {
+		return n + fn2(n-1)
+	} else {
+		return 1
+	}
+}
+
+// 递归实现5的阶乘
+func fn3(n int) int {
+	if n > 1 {
+		return n * fn3(n-1)
+	} else {
+		return 1
+	}
+}
+
+// 闭包:函数里面嵌套一个函数 最后返回里面的函数
+// 1，可以让一个变量常驻内存
+// 2，可以让一个变量不污染全局
+func adder() func() int {
+	var i = 10
+	return func() int {
+		return i + 1
+	}
+}
+
+func adder2() func(y int) int {
+	var i = 10
+	return func(y int) int {
+		i += y
+		return i
+	}
+}
 func main() {
 	sum1 := sumFu1(12, 34, 45, 46)
 	fmt.Println("sum1:", sum1)
@@ -138,4 +183,18 @@ func main() {
 
 	str := mapSort(map1)
 	fmt.Println("str:", str) //str: age=>20 heigh=>180cm sex=>男 username=>zhangsan
+
+	fn1(10)
+	fmt.Println(fn2(100)) //5050
+	fmt.Println(fn3(5))   //120
+
+	var a = adder()  //表示执行方法
+	fmt.Println(a()) //11
+	fmt.Println(a()) //11
+	fmt.Println(a()) //11
+
+	var fn2 = adder2()   //表示执行方法
+	fmt.Println(fn2(10)) //20
+	fmt.Println(fn2(10)) //30
+	fmt.Println(fn2(10)) //40
 }
