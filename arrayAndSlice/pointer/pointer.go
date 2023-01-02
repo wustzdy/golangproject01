@@ -21,6 +21,8 @@ func main() {
 
 	fn2(&aa)
 	fmt.Println(aa) //40
+
+	mapTest()
 }
 
 func pointerTest() {
@@ -48,4 +50,39 @@ func fn1(x int) {
 }
 func fn2(x *int) {
 	*x = 40
+}
+
+func mapTest() {
+
+	//以下写法不对
+	/*var userInfo = map[string]string
+	userInfo["username"] = "张三"
+	userInfo["sex"] = "男"
+	fmt.Println(userInfo)*/
+	//因为map是引用数据类型，使用之前要先进行分配空间就是用make
+
+	var userInfo = make(map[string]string)
+	userInfo["username"] = "张三"
+	userInfo["sex"] = "男"
+	fmt.Println(userInfo) //map[sex:男 username:张三]
+
+	/*var a *int
+	*a = 100
+	fmt.Println(*a)*/ //也会报错，因为指针也是一个引用数据类型
+
+	//我们可以用new 来分配空间 使用new函数得到的是一个指针类型，并且改指针对应的值为该类型d的零值
+
+	var a = new(int)                                     //表示a是一个指针变量， 类型是*int的指针类型 值是0
+	fmt.Printf("a的值:%v a的类型:%T 指针变量对应的值:%v\n", a, a, *a) //a的值:0xc000122040 a的类型:*int 指针变量对应的值:0
+
+	/*
+		错误的写法
+		var a *int
+		*a = 100
+		fmt.Println(*a)
+	*/
+	var aa *int
+	aa = new(int)
+	*aa = 100
+	fmt.Println(*aa) //100
 }
