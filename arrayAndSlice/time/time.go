@@ -12,6 +12,16 @@ func main() {
 	formatTime()
 	//时间戳转为年月日时分秒
 	timeFormat()
+	//把年月日转成时间戳
+	formatStr()
+	//时间操作函数
+	operationTime()
+	//golang定时器
+	//timer()
+	// 执行5次就停止
+	timer1()
+	//timeSleep
+	timeSleep()
 
 }
 
@@ -46,10 +56,64 @@ func formatTime() {
 	fmt.Println("当前纳秒时间戳unixNaTime:", unixNaTime) //当前纳秒时间戳unixNaTime: 1672660735589579000
 
 }
+
+// 时间戳转为年月日时分秒
 func timeFormat() {
 	//时间戳转为时分秒
 	unixTime := 1672660651
 	timeObj := time.Unix(int64(unixTime), 0)
 	var str = timeObj.Format("2006-01-02 15:04:05")
 	fmt.Println("str:", str) //str: 2023-01-02 19:57:31
+}
+
+// 把年月日转成时间戳
+func formatStr() {
+	t1 := "2023-01-02 19:57:31"
+	timeTemplate := "2006-01-02 15:04:05"
+	stamp, _ := time.ParseInLocation(timeTemplate, t1, time.Local)
+	fmt.Println("当前时间转为时间戳：", stamp.Unix()) //当前时间转为时间戳： 1672660651
+}
+
+func operationTime() {
+	var timeObj = time.Now()
+	fmt.Println("timeObj:", timeObj)
+	timeObj = timeObj.Add(time.Hour)
+	fmt.Println("timeObj:", timeObj)
+}
+
+// 每隔一秒钟执行一次操作
+func timer() {
+	ticker := time.NewTicker(time.Second)
+	for t := range ticker.C {
+		fmt.Println("t:", t)
+	}
+}
+
+// 执行5次就停止
+func timer1() {
+	ticker := time.NewTicker(time.Second)
+	n := 5
+	for t := range ticker.C {
+		n--
+		fmt.Println("t:", t)
+		if n == 0 {
+			ticker.Stop() //终止这个定时器
+			break
+		}
+	}
+}
+func timeSleep() {
+	fmt.Println("aaa")
+	time.Sleep(time.Second)
+	fmt.Println("aaa2")
+	time.Sleep(time.Second)
+	fmt.Println("aaa3")
+	time.Sleep(time.Second * 5)
+	fmt.Println("aaa4")
+
+	//死循环 每隔一秒钟执行定时任务
+	for {
+		time.Sleep(time.Second)
+		fmt.Println("我在执行定时任务")
+	}
 }
