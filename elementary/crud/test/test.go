@@ -3,8 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"golangproject01/gormRelations/crud/core"
-	"golangproject01/gormRelations/crud/models"
+	"golangproject01/elementary/crud/core"
+	"golangproject01/elementary/crud/models"
 )
 
 func main() {
