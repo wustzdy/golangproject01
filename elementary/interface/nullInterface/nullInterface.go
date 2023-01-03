@@ -7,6 +7,15 @@ type A interface{} //空接口，表示没有约束，任意类型的接口都�
 func main() {
 	nullInterfaceTest()
 	nullFunc()
+	nullShow()
+
+}
+
+func nullShow() {
+	show(20)
+	show("你好golang")
+	slice := []int{1, 2, 3, 4}
+	show(slice) //传入一个切片类型
 }
 
 func nullInterfaceTest() {
@@ -22,6 +31,8 @@ func nullInterfaceTest() {
 	var flag = true
 	a = flag
 	fmt.Printf("值:%v  类型:%T\n", a, a) //值:true  类型:bool
+
+	fmt.Println("-----------------")
 }
 
 func nullFunc() {
@@ -34,4 +45,10 @@ func nullFunc() {
 	a = true
 	fmt.Printf("值:%v  类型:%T\n", a, a) //值:true  类型:bool
 
+	fmt.Println("-----------------")
+}
+
+// //golang中空接口也可以直接当做类型来使用，可以表示任意类型
+func show(a interface{}) {
+	fmt.Printf("值:%v  类型:%T\n", a, a)
 }
