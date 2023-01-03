@@ -8,6 +8,7 @@ func main() {
 	nullInterfaceTest()
 	nullFunc()
 	nullShow()
+	mapInterface()
 
 }
 
@@ -51,4 +52,27 @@ func nullFunc() {
 // //golang中空接口也可以直接当做类型来使用，可以表示任意类型
 func show(a interface{}) {
 	fmt.Printf("值:%v  类型:%T\n", a, a)
+}
+func mapInterface() {
+	/*
+		var m1 = make(map[string]string)
+		m1["username"] = "张三"
+		m1["age"] = "20"
+	*/
+
+	fmt.Println("-----------------")
+	var m1 = make(map[string]interface{})
+	m1["username"] = "张三"
+	m1["age"] = 20
+	m1["married"] = true
+	fmt.Println(m1) //map[age:20 married:true username:张三]
+
+	/*
+			var s1 = []string{"11", "22"} //只能是string
+		    var s1 = []int{1, 2}          //int
+	*/
+
+	var s1 = []interface{}{1, 2, "你好golang", true}
+	fmt.Println("s1:", s1)
+
 }
