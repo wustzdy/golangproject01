@@ -2,9 +2,11 @@ package main
 
 import "fmt"
 
-// 接口参数实现
-type Animal interface {
+// 一个结构体实现多个接口
+type Animal1 interface {
 	SetName(string)
+}
+type Animal2 interface {
 	GetName() string
 }
 
@@ -20,35 +22,8 @@ func (d *Dog) GetName() string {
 	return d.Name
 }
 
-// 猫
-type Cat struct {
-	Name string
-}
-
-func (c *Cat) SetName(name string) {
-	c.Name = name
-}
-func (c *Cat) GetName() string {
-	return c.Name
-}
 func main() {
 	DogTest()
-	CatTest()
-
-}
-
-func CatTest() {
-	fmt.Println("----------------------------")
-	//Cat实现Animal接口
-	var c = &Cat{
-		Name: "小猫",
-	}
-	var animal1 Animal = c
-	fmt.Println(animal1.GetName()) //小猫
-
-	//setName
-	animal1.SetName("小花猫")
-	fmt.Println(animal1.GetName()) //小花猫
 }
 
 func DogTest() {
@@ -56,10 +31,9 @@ func DogTest() {
 	var d = &Dog{
 		Name: "小黑",
 	}
-	var animal Animal = d
-	fmt.Println(animal.GetName()) //小黑
+	var d1 Animal1 = d //让dog 实现Animal1这个接口
+	var d2 Animal2 = d //让dog 实现Animal2这个接口
+	d1.SetName("小花狗狗")
+	fmt.Println(d2.GetName()) //小花狗狗
 
-	//setName
-	animal.SetName("小花")
-	fmt.Println(animal.GetName()) //小花
 }
