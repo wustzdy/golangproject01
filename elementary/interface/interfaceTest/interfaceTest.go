@@ -50,4 +50,11 @@ func main() {
 		小米 关机
 	*/
 
+	var camera = Camera{}
+	computer.work(camera)
+	/*
+		相机启动
+		相机关机
+	*/
+
 }
