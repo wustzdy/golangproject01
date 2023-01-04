@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"encoding/base64"
+	"fmt"
+)
 
 func main() {
 
@@ -19,5 +22,11 @@ func main() {
 
 	var arr4 = [...]int{1: 2, 2: 3}
 	fmt.Println(arr4)
+
+	chinese := "mp4/??-1/4093042-264875cfa9363d5187bc9661c0682bee.mp4"
+	str1 := base64.StdEncoding.EncodeToString([]byte(chinese))
+	fmt.Println(str1)
+	str2, _ := base64.StdEncoding.DecodeString(str1)
+	fmt.Println(string(str2))
 
 }
