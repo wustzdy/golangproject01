@@ -40,7 +40,8 @@ func main() {
 	ss := strings.Contains(str, "/")
 	fmt.Println("ss:", ss)
 
-	test()
+	//test()
+	testIndexString()
 
 }
 
@@ -80,4 +81,37 @@ func test() {
 
 	}
 
+}
+
+func testIndexString() {
+	fmt.Println("-----------------------")
+	var arrays = []string{
+		"bXA0Lz8/LTEvMzYyNjk2NC0yY2NjYjI0YWY4Yjg1YmUxNjczMGMxN2E5ZTJmY2UzMy5tcDQ=",
+		//"bXA0Lz8/LTEvNDA5MzA0Mi0yNjQ4NzVjZmE5MzYzZDUxODdiYzk2NjFjMDY4MmJlZS5tcDQ=",
+		//"bXA0LzQ3OTU4OTAtNGQ3N2U1NDZhNDYzNDQ3OGM5MmU2Y2ViNzk2MGFhM2UubXA0",
+		/*	"bXA0LzQ3ODA5ODUtZWEzMjBjODdiNDU2ZjZlYzhhMjhiNTc2YmU5N2VkYzEubXA0",
+			"bXA0Lz8/LTIvNDM2MTA1Mi0wOGI0YTlmMWUxOWJkMDFiYWM2MTJjYTMyZDYwMGNkZi5tcDQ=",
+			"bXA0Lz8/LTIvNDcxMDY3MS0yZjFjMWM3ODNhMDE5ZjU2Y2U3ODZhMGU5OGEzYzEzZS5tcDQ=",
+			"bXA0Lz8/LTEvPz8tMS0xLzI4ODU4MDMtN2E5Yzg0NzY3MGI1YzA5YTJjZDNjMGY3MTYzMTVjOTcubXA0",
+			"bXA0Lz8/LTIvNDM1NjY0OS0yYTQ2Y2M5NDY1NDg4YTg1Mjg2NzdjM2Q3MzgzNzdjMy5tcDQ=",*/
+	}
+	var reslutStr string
+	var reslutStrPath string
+	for _, v := range arrays {
+		srcPath, err := base64.StdEncoding.DecodeString(v)
+		if err != nil {
+			srcPath = []byte(v)
+		}
+		reslutStr = string(srcPath)
+		fmt.Println("reslutStr1:", reslutStr)
+
+		if find := strings.Contains(reslutStr, "/"); find {
+			index := strings.Index(reslutStr, "/")
+			if index != -1 {
+				reslutStrPath = reslutStr[index+1 : len(reslutStr)]
+			}
+		}
+
+		fmt.Println("reslutStr:", reslutStrPath)
+	}
 }
